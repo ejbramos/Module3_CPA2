@@ -7,13 +7,19 @@ public class Main {
     public static void main(String[] args) {
         Customer customer = new Customer();
 
-        customer.customers();
+        try {
+            customer.customers();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println();
     }
 }
 
 class Customer {
     private int cNum;
-    private int AcctNo;
+    private String AcctNo;
     private String AcctName;
     private char type;
     private int amount;
@@ -27,13 +33,12 @@ class Customer {
         this.cNum = i;
     }
 
-    public int getAcctNo() {
+    public String getAcctNo() {
         return AcctNo;
     }
 
     public void setAcctNo(String acctNo) {
-        int i = Integer.valueOf(acctNo);
-        AcctNo = i;
+        AcctNo = acctNo;
     }
 
     public String getAcctName() {
@@ -48,8 +53,9 @@ class Customer {
         return type;
     }
 
-    public void setType(char type) {
-        this.type = type;
+    public void setType(String type) {
+
+        this.type = type.charAt(0);
     }
 
     public int getAmount() {
@@ -73,17 +79,21 @@ class Customer {
 
 
     public void customers() throws FileNotFoundException {
-        File file = new File("customer.txt");
+        File file = new File("src/customer.txt");
         System.out.println("How many customers: ");
-        Scanner input = new Scanner(file);
-        String line = input.nextLine();
-        String[] wiw = line.split(",");
-        setCNum(wiw[0]);
-        setAcctNo(wiw[1]);
-        setAcctName(wiw[2]);
-        setAmount(wiw[3]);
-        setTime(wiw[4]);
-
+        Scanner input = new Scanner(System.in);
+        int intInput = input.nextInt();
+        Scanner read = new Scanner(file);
+        for(int i = 0; i<intInput; i++) {
+            String line = read.nextLine();
+            String[] wiw = line.split(",");
+            setCNum(wiw[0]);
+            setAcctNo(wiw[1]);
+            setAcctName(wiw[2]);
+            setType(wiw[3]);
+            setAmount(wiw[4]);
+            setTime(wiw[5]);
+        }
 
     }
 
