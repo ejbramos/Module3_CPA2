@@ -30,7 +30,6 @@ public class Main {
             customers[ptr] = line;
             String[] wiw = line.split(",");
 
-            if
 
             ptr++;
         }
@@ -115,6 +114,5 @@ class Customer {
 
     }
     public void teller(){
-        customers()
     }
 }
